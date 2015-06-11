@@ -36,17 +36,20 @@ function init() {
     
     container = document.getElementById( 'container' );
     // container.appendChild( renderer.domElement );
+    // for(var j = 0; j< 3; j++){
+        for(var i = 0; i < 5; i++){
+            var gMesh = new GradientMesh(scene, window.innerWidth, window.innerHeight);
+            gMesh.init(i);
+            // gMesh.mesh.position.z = -i*0.00001;
+            // gMesh.mesh.position.x = j*100;
+            meshes.push(gMesh);
+        }
+    // }
 
-    for(var i = 0; i < 4; i++){
-        var gMesh = new GradientMesh(scene, window.innerWidth, window.innerHeight);
-        gMesh.init(i);
-        // gMesh.mesh.position.z = -i*0.00001;
-        meshes.push(gMesh);
-    }
 
     // document.addEventListener( 'keydown', function(){screenshot(renderer)}, false );
     
-    /*composer = new THREE.EffectComposer( renderer );
+    composer = new THREE.EffectComposer( renderer );
     composer.addPass( new THREE.RenderPass( scene, camera ) );
 
     var effectHBlur = new THREE.ShaderPass( THREE.HorizontalBlurShader );
@@ -56,7 +59,7 @@ function init() {
     effectVBlur.renderToScreen = true;
 
     composer.addPass( effectHBlur );
-    composer.addPass( effectVBlur );*/
+    composer.addPass( effectVBlur );
     camera.rotation.set(Math.PI/100, Math.PI/100, 0);
 
     fbInit();
@@ -70,12 +73,19 @@ function draw(){
     // camera.setLens(10)
     time+=0.01;
 
-    for(var i = 0; i < meshes.length; i++){
-        meshes[i].update();
-        meshes[i].mesh.position.z = -i*0.00001;
-    }
-    // composer.render();
-    renderer.render(scene, camera);
+    // for(var j = 0; j<4; j++){
+        // for(var k = 0; k<4; k++){
+            for(var i = 0; i < meshes.length; i++){
+                meshes[i].update();
+                meshes[i].mesh.position.z = -i*0.000001;
+            }
+        // }
+    // }
+
+    composer.render();
+    // clearColor = new THREE.Color().setHSL((Math.sin(Date.now()*0.001)*0.5 + 0.5), 1.0, 0.5 );
+    // renderer.setClearColor(clearColor, 1.0)
+    // renderer.render(scene, camera);
 
     fbDraw();
 }
@@ -102,7 +112,7 @@ function fbInit(){
     fbTexture = new THREE.Texture(canv);
     // fbTexture = new THREE.Texture(renderer.domElement);
     
-    fbShaders = [blurShader, reposShader, diffShader, reposShader, passShader];
+    fbShaders = [reposShader, reposShader, diffShader, sharpenShader, passShader];
 
     fbMaterial = new FeedbackMaterial(fbRenderer, fbScene, fbCamera, fbTexture, fbShaders);
     
@@ -110,7 +120,7 @@ function fbInit(){
 
     document.addEventListener( 'keydown', function(){screenshot(fbRenderer)}, false );
     document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-    document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+    // document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 
 }
 function onDocumentMouseMove( event ) {
@@ -138,7 +148,7 @@ function onDocumentMouseDown( event ) {
 }
 function fbDraw(){
     
-    ctx.fillStyle = "white";
+    ctx.fillStyle = "green";
     ctx.fillRect(0,0,window.innerWidth, window.innerHeight);
     ctx.drawImage(renderer.domElement, 0, 0, window.innerWidth, window.innerHeight);
 
