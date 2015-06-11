@@ -37,7 +37,7 @@ function init() {
     container = document.getElementById( 'container' );
     // container.appendChild( renderer.domElement );
     // for(var j = 0; j< 3; j++){
-        for(var i = 0; i < 5; i++){
+        for(var i = 0; i < 7; i++){
             var gMesh = new GradientMesh(scene, window.innerWidth, window.innerHeight);
             gMesh.init(i);
             // gMesh.mesh.position.z = -i*0.00001;
@@ -54,8 +54,8 @@ function init() {
 
     var effectHBlur = new THREE.ShaderPass( THREE.HorizontalBlurShader );
     var effectVBlur = new THREE.ShaderPass( THREE.VerticalBlurShader );
-    effectHBlur.uniforms[ 'h' ].value = 2 / ( window.innerWidth /2 );
-    effectVBlur.uniforms[ 'v' ].value = 2 / ( window.innerHeight /2 );
+    effectHBlur.uniforms[ 'h' ].value = 1 / ( window.innerWidth /2 );
+    effectVBlur.uniforms[ 'v' ].value = 1 / ( window.innerHeight /2 );
     effectVBlur.renderToScreen = true;
 
     composer.addPass( effectHBlur );
@@ -77,8 +77,10 @@ function draw(){
         // for(var k = 0; k<4; k++){
             for(var i = 0; i < meshes.length; i++){
                 meshes[i].update();
-                meshes[i].mesh.position.z = -i*0.000001;
-                meshes[i].mesh.rotation.y = Date.now()*0.000000001;
+                // meshes[i].mesh.position.z = -i*0.0000001;
+                meshes[i].mesh.position.z = -i*0.001;
+                // meshes[i].mesh.rotation.y = Date.now()*0.000000001;
+                // meshes[i].mesh.rotation.y = Date.now()*0.0001;
             }
         // }
     // }
@@ -113,7 +115,8 @@ function fbInit(){
     fbTexture = new THREE.Texture(canv);
     // fbTexture = new THREE.Texture(renderer.domElement);
     
-    fbShaders = [reposShader, reposShader, diffShader, sharpenShader, passShader];
+    fbShaders = [blurShader, reposShader, diffShader, colorShader, sharpenShader];
+    // fbShaders = [blurShader, reposShader, diffShader, reposShader, sharpenShader];
 
     fbMaterial = new FeedbackMaterial(fbRenderer, fbScene, fbCamera, fbTexture, fbShaders);
     

@@ -102,7 +102,7 @@ var colorShader =  {
 
 		"  hsv.r += 0.01;",
 		"  hsv.r = mod(hsv.r, 1.0);",
-		"  hsv.g *= 1.0001;",
+		"  hsv.g *= 1.00001;",
 		"  // hsv.g = mod(hsv.g, 1.0);",
 		"  vec3 rgb = hsv2rgb(hsv); ",
 
@@ -371,7 +371,7 @@ var reposShader =  {
 
 		"    vec2 tc = vUv;",
 		"    vec4 look = texture2D(texture,tc);",
-		"    vec2 offs = vec2(look.y-look.x,look.w-look.z)*0.005;",
+		"    vec2 offs = vec2(look.y-look.x,look.w-look.z)*0.01;",
 		"    vec2 coord = offs+tc;",
 		"    vec4 repos = texture2D(texture, coord);",
 		// "    repos*=1.5;",
