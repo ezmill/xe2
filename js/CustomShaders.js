@@ -332,7 +332,7 @@ var diffShader =  {
 
 		"  vec4 fc = (tex2 - tex1);",
 		"  vec4 add = (fc + tex0);",
-		"  gl_FragColor = vec4(add);",
+		"  gl_FragColor = vec4(fc);",
 		"}"
 	
 	].join("\n")

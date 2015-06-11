@@ -78,6 +78,7 @@ function draw(){
             for(var i = 0; i < meshes.length; i++){
                 meshes[i].update();
                 meshes[i].mesh.position.z = -i*0.000001;
+                meshes[i].mesh.rotation.y = Date.now()*0.000000001;
             }
         // }
     // }

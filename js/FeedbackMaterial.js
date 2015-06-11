@@ -90,7 +90,7 @@ function FeedbackMaterial(RENDERER, SCENE, CAMERA, TEXTURE, SHADERS){
 }
 function FeedbackObject(SHADER) {
     this.scene = new THREE.Scene();
-    this.renderTarget = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, { minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter, format: THREE.RGBAFormat});
+    this.renderTarget = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat});
     this.shader = SHADER;
     this.material = new THREE.ShaderMaterial({
         uniforms: this.shader.uniforms,
