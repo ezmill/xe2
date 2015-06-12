@@ -371,7 +371,8 @@ var reposShader =  {
 
 		"    vec2 tc = vUv;",
 		"    vec4 look = texture2D(texture,tc);",
-		"    vec2 offs = vec2(look.y-look.x,look.w-look.z)*0.01;",
+		// "    vec2 offs = vec2(look.y-look.x,look.w-look.z)*0.01;",
+		"    vec2 offs = vec2(look.y-look.x,look.w-look.z)*vec2(mouse.x/100.0, mouse.y/100.0);",
 		"    vec2 coord = offs+tc;",
 		"    vec4 repos = texture2D(texture, coord);",
 		// "    repos*=1.5;",
